@@ -2252,12 +2252,12 @@ namespace Renesas_Secure_Flash_Programmer
                 else
                 {
                     sb.Append("S315");
-                    sb.Append(Convert.ToString(bootloader_const_data_top_address, 16).ToUpper());
-                    bootloader_address_motorola_tmp = sb.ToString();
+                    sb.Append(Convert.ToString(bootloader_const_data_top_address, 16).PadLeft(8, '0').ToUpper());
+                    bootloader_address_motorola_tmp = sb.ToString(); 
                     current_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp);
                     sb.Clear();
                     sb.Append("S315");
-                    sb.Append(Convert.ToString(bootloader_const_data_bottom_address, 16).ToUpper());
+                    sb.Append(Convert.ToString(bootloader_const_data_bottom_address, 16).PadLeft(8, '0').ToUpper());
                     bootloader_address_motorola_tmp = sb.ToString().Remove(11, 1);
                     bootloader_const_data_one_line_length = 46 + 2; // S3 format last line length + CRLF
                     next_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp) + bootloader_const_data_one_line_length;
