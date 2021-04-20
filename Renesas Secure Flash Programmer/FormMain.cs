@@ -40,6 +40,7 @@ namespace Renesas_Secure_Flash_Programmer
             RX66T,
             RX72T,
             RX72N,
+            RX671,
         }
 
         /// <summary>
@@ -259,7 +260,8 @@ namespace Renesas_Secure_Flash_Programmer
         const string MCUROM_RX72T_512K_SB_64KB = "RX72T(ROM 512KB)/Secure Bootloader=64KB";
         const string MCUROM_RX72N_4M_SB_64KB = "RX72N(ROM 4MB)/Secure Bootloader=64KB";
         const string MCUROM_RX72N_4M_SB_256KB = "RX72N(ROM 4MB)/Secure Bootloader=256KB";
-        
+        const string MCUROM_RX671_2M_SB_64KB = "RX671(ROM 2MB)/Secure Bootloader=64KB";
+
 
         const string FIRMWARE_VERIFICATION_TYPE_HASH_SHA256 = "hash-sha256";
         const string FIRMWARE_VERIFICATION_TYPE_SIG_SHA256_ECDSA = "sig-sha256-ecdsa";
@@ -288,7 +290,8 @@ namespace Renesas_Secure_Flash_Programmer
             { MCUROM_RX72T_512K_SB_64KB,                new AddressMap(0x00000009, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
             { MCUROM_RX72N_4M_SB_64KB,                  new AddressMap(0x0000000a, 0xffe00300, 0xfffeffff, 0xffc00300, 0xffdfffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
             { MCUROM_RX72N_4M_SB_256KB,                 new AddressMap(0x0000000b, 0xffe00300, 0xfffbffff, 0xffc00300, 0xffdbffff, 0xfffc0000, 0xffffffff, 0xffc00000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            
+            { MCUROM_RX671_2M_SB_64KB,                  new AddressMap(0x0000000c, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffefffff, 0xffff0000, 0xffffffff, 0xfff00000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x00101fff, 0x00100000, 0x00101fff, 0xFE7F5D00, 0xFE7F5D7F) },
+
         };
 
         public static readonly Dictionary<string, uint> InitialFirmVerificationType = new Dictionary<string, uint>()
@@ -1982,6 +1985,11 @@ namespace Renesas_Secure_Flash_Programmer
                     offset = (McuSpecs[MCUROM_RX72N_4M_SB_256KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
                     blockMirrorTopAddress = blockTopAddress + offset;
                     break;
+                case Mcu.RX671:
+                    blockTopAddress = McuSpecs[MCUROM_RX671_2M_SB_64KB].dataFlashTopAddress;
+                    offset = (McuSpecs[MCUROM_RX671_2M_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
+                    blockMirrorTopAddress = blockTopAddress + offset;
+                    break;
                 default:
                     break;
             }
@@ -2544,6 +2552,8 @@ namespace Renesas_Secure_Flash_Programmer
             uint user_program_const_data_bottom_address = McuSpecs[mcuName].userProgramConstDataBottomAddress;
             uint data_flash_top_address = McuSpecs[mcuName].dataFlashTopAddress;
             uint data_flash_bottom_address = McuSpecs[mcuName].dataFlashBottomAddress;
+            uint ofs_top_address = McuSpecs[mcuName].ofsTopAddress;
+            uint ofs_bottom_address = McuSpecs[mcuName].ofsBottomAddress;
             StringBuilder sb = new StringBuilder();
 
             try
@@ -2571,48 +2581,87 @@ namespace Renesas_Secure_Flash_Programmer
                 motorola_top_buf = sb.ToString();
                 sb.Clear();
 
-                // S2 or S3: Data Flash of Boot Loader
-                string bootloader_address_motorola_tmp = "";
                 if (0 < str_bootloader.IndexOf("S2"))
                 {
+                    bootloader_const_data_one_line_length = 44 + 2; // S2 format last line length + CRLF
+                }
+                else
+                {
+                    bootloader_const_data_one_line_length = 46 + 2; // S3 format last line length + CRLF
+                }
+
+                // S2 or S3: Data Flash of Boot Loader
+                string bootloader_address_motorola_tmp = "";
+                if (bootloader_const_data_top_address == bootloader_const_data_bottom_address)
+                {
+                    ;
+                }
+                else if (0 < str_bootloader.IndexOf("S2"))
+                {
                     sb.Append("S214");
-                    sb.Append(Convert.ToString(bootloader_const_data_top_address, 16).ToUpper());
+                    sb.Append(bootloader_const_data_top_address.ToString("X6"));
                     bootloader_address_motorola_tmp = sb.ToString();
                     current_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp);
                     sb.Clear();
-                    sb.Append("S214");
-                    sb.Append(Convert.ToString(bootloader_const_data_bottom_address, 16).ToUpper());
-                    bootloader_address_motorola_tmp = sb.ToString().Remove(9, 1);
-                    bootloader_const_data_one_line_length = 44 + 2; // S2 format last line length + CRLF
-                    next_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp) + bootloader_const_data_one_line_length;
-                    sb.Clear();
+                    if (current_pointer > 0)
+                    {
+                        sb.Append("S214");
+                        sb.Append(bootloader_const_data_bottom_address.ToString("X6"));
+                        bootloader_address_motorola_tmp = sb.ToString().Remove(9, 1);
+                        next_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp) + bootloader_const_data_one_line_length;
+                        sb.Clear();
+                        motorola_bootloader_const_data_buf = str_bootloader.Substring(current_pointer, next_pointer - current_pointer);
+                    }
                 }
                 else
                 {
                     sb.Append("S315");
-                    sb.Append(Convert.ToString(bootloader_const_data_top_address, 16).ToUpper());
+                    sb.Append(bootloader_const_data_top_address.ToString("X8"));
                     bootloader_address_motorola_tmp = sb.ToString();
                     current_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp);
                     sb.Clear();
-                    sb.Append("S315");
-                    sb.Append(Convert.ToString(bootloader_const_data_bottom_address, 16).ToUpper());
-                    bootloader_address_motorola_tmp = sb.ToString().Remove(11, 1);
-                    bootloader_const_data_one_line_length = 46 + 2; // S3 format last line length + CRLF
-                    next_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp) + bootloader_const_data_one_line_length;
-                    sb.Clear();
-                }
-                motorola_bootloader_const_data_buf = str_bootloader.Substring(current_pointer, next_pointer - current_pointer);
-
-                // S3: Option Setting Memory of Boot Loader
+                    if (current_pointer > 0)
+                    {
+                        sb.Append("S315");
+                        sb.Append(bootloader_const_data_bottom_address.ToString("X8"));
+                        bootloader_address_motorola_tmp = sb.ToString().Remove(11, 1);
+                        next_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp) + bootloader_const_data_one_line_length;
+                        sb.Clear();
+                        motorola_bootloader_const_data_buf = str_bootloader.Substring(current_pointer, next_pointer - current_pointer);
+                    }
+                }                
                 string bootloader_option_memory_address_motorola_tmp = "";
-                current_pointer = str_bootloader.IndexOf(bootloader_address_motorola_tmp) + bootloader_const_data_one_line_length;
-                sb.Clear();
-                sb.Append("S315");
-                sb.Append(Convert.ToString(bootloader_top_address, 16).ToUpper());
-                bootloader_option_memory_address_motorola_tmp = sb.ToString();
-                next_pointer = str_bootloader.IndexOf(bootloader_option_memory_address_motorola_tmp);
-                sb.Clear();
-                motorola_bootloader_option_memory_buf = str_bootloader.Substring(current_pointer, next_pointer - current_pointer);
+                if (ofs_top_address != ofs_bottom_address)
+                {
+                    string[] lines = str_bootloader.Split('\n');
+                    foreach (string line in lines)
+                    {
+                        if (line.Contains(ofs_top_address.ToString("X8")))
+                        {
+                            if (line.IndexOf(ofs_top_address.ToString("X8")) == 4)
+                            {
+                                bootloader_option_memory_address_motorola_tmp = line.ToString() + "\n";
+                            }
+                            else
+                            {
+                                ;
+                            }
+
+                        }
+                    }
+                    current_pointer = str_bootloader.IndexOf(bootloader_option_memory_address_motorola_tmp);
+
+                    sb.Clear();
+                    if (current_pointer > 0)
+                    {
+                        sb.Append(ofs_bottom_address.ToString("X8"));
+                        bootloader_option_memory_address_motorola_tmp = sb.ToString().Remove(7, 1);
+                        next_pointer = str_bootloader.IndexOf(bootloader_option_memory_address_motorola_tmp, 4);
+                        next_pointer = str_bootloader.IndexOf("\r\n", next_pointer) + 2;
+                        sb.Clear();
+                        motorola_bootloader_option_memory_buf = str_bootloader.Substring(current_pointer, next_pointer - current_pointer);
+                    }
+                }
 
                 // Convert user userprogram key data string to binary
                 byte[] userProgramKey = convertStrDataToKeyData(textBoxInitialUserProgramKey_Aes128.Text, USER_PROGRAM_KEY_BYTE_SIZE);
