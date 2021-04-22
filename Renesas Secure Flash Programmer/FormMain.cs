@@ -40,7 +40,6 @@ namespace Renesas_Secure_Flash_Programmer
             RX66T,
             RX72T,
             RX72N,
-            RX671,
         }
 
         /// <summary>
@@ -260,7 +259,6 @@ namespace Renesas_Secure_Flash_Programmer
         const string MCUROM_RX72T_512K_SB_64KB = "RX72T(ROM 512KB)/Secure Bootloader=64KB";
         const string MCUROM_RX72N_4M_SB_64KB = "RX72N(ROM 4MB)/Secure Bootloader=64KB";
         const string MCUROM_RX72N_4M_SB_256KB = "RX72N(ROM 4MB)/Secure Bootloader=256KB";
-        const string MCUROM_RX671_2M_SB_64KB = "RX671(ROM 2MB)/Secure Bootloader=64KB";
 
 
         const string FIRMWARE_VERIFICATION_TYPE_HASH_SHA256 = "hash-sha256";
@@ -279,19 +277,17 @@ namespace Renesas_Secure_Flash_Programmer
         public static readonly Dictionary<string, AddressMap> McuSpecs = new Dictionary<string, AddressMap>()
         {
             /* name (SB means Secure Bootloader) */
-            { MCUROM_RX65N_2M_SB_64KB,                  new AddressMap(0x00000001, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffefffff, 0xffff0000, 0xffffffff, 0xfff00000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX65N_2M_SB_256KB,                 new AddressMap(0x00000002, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffebffff, 0xfffc0000, 0xffffffff, 0xfff00000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX130_512K_SB_64KB,                new AddressMap(0x00000003, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
-            { MCUROM_RX231_512K_SB_64KB,                new AddressMap(0x00000004, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
+            { MCUROM_RX65N_2M_SB_64KB,                  new AddressMap(0x00000001, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffefffff, 0xffff0000, 0xffffffff, 0xfff00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX65N_2M_SB_256KB,                 new AddressMap(0x00000002, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffebffff, 0xfffc0000, 0xffffffff, 0xfff00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX130_512K_SB_64KB,                new AddressMap(0x00000003, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
+            { MCUROM_RX231_512K_SB_64KB,                new AddressMap(0x00000004, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
             { MCUROM_RX231_384K_SB_32KB,                new AddressMap(0x00000005, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
-            { MCUROM_RX66T_512K_SB_64KB,                new AddressMap(0x00000006, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
+            { MCUROM_RX66T_512K_SB_64KB,                new AddressMap(0x00000006, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
             { MCUROM_RX66T_256K_SB_64KB,                new AddressMap(0x00000007, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
             { MCUROM_RX72T_1M_SB_64KB,                  new AddressMap(0x00000008, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
             { MCUROM_RX72T_512K_SB_64KB,                new AddressMap(0x00000009, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
-            { MCUROM_RX72N_4M_SB_64KB,                  new AddressMap(0x0000000a, 0xffe00300, 0xfffeffff, 0xffc00300, 0xffdfffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX72N_4M_SB_256KB,                 new AddressMap(0x0000000b, 0xffe00300, 0xfffbffff, 0xffc00300, 0xffdbffff, 0xfffc0000, 0xffffffff, 0xffc00000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX671_2M_SB_64KB,                  new AddressMap(0x0000000c, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffefffff, 0xffff0000, 0xffffffff, 0xfff00000, 0xffffffff, 0x00100000, 0x001007ff, 0x00100800, 0x00101fff, 0x00100000, 0x00101fff, 0xFE7F5D00, 0xFE7F5D7F) },
-
+            { MCUROM_RX72N_4M_SB_64KB,                  new AddressMap(0x0000000a, 0xffe00300, 0xfffeffff, 0xffc00300, 0xffdfffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX72N_4M_SB_256KB,                 new AddressMap(0x0000000b, 0xffe00300, 0xfffbffff, 0xffc00300, 0xffdbffff, 0xfffc0000, 0xffffffff, 0xffc00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
         };
 
         public static readonly Dictionary<string, uint> InitialFirmVerificationType = new Dictionary<string, uint>()
@@ -1983,11 +1979,6 @@ namespace Renesas_Secure_Flash_Programmer
                 case Mcu.RX72N:
                     blockTopAddress = McuSpecs[MCUROM_RX72N_4M_SB_256KB].dataFlashTopAddress;
                     offset = (McuSpecs[MCUROM_RX72N_4M_SB_256KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
-                    blockMirrorTopAddress = blockTopAddress + offset;
-                    break;
-                case Mcu.RX671:
-                    blockTopAddress = McuSpecs[MCUROM_RX671_2M_SB_64KB].dataFlashTopAddress;
-                    offset = (McuSpecs[MCUROM_RX671_2M_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
                     blockMirrorTopAddress = blockTopAddress + offset;
                     break;
                 default:
