@@ -139,6 +139,10 @@ namespace Renesas_Secure_Flash_Programmer
             /// </summary>
             public uint userProgramMirrorTopAddress;
             /// <summary>
+            /// bootloader mirror top address
+            /// </summary>
+            public uint bootloaderMirrorTopAddress;
+            /// <summary>
             /// user program mirror bottom address
             /// </summary>
             public uint userProgramMirrorBottomAddress;
@@ -151,6 +155,11 @@ namespace Renesas_Secure_Flash_Programmer
             /// </summary>
             public uint bootloaderBottomAddress;
             /// <summary>
+            /// code flash top address
+            /// </summary>
+
+            
+            
             /// code flash top address
             /// </summary>
             public uint codeFlashTopAddress;
@@ -198,6 +207,7 @@ namespace Renesas_Secure_Flash_Programmer
             /// <param name="user_program_top_address"></param>
             /// <param name="user_program_bottom_address"></param>
             /// <param name="user_program_mirror_top_address"></param>
+            /// <param name="bootloader_mirror_top_address"></param>
             /// <param name="user_program_mirror_bottom_address"></param>
             /// <param name="bootloader_top_address"></param>
             /// <param name="bootloader_bottom_address"></param>
@@ -214,9 +224,10 @@ namespace Renesas_Secure_Flash_Programmer
                 uint user_program_top_address,
                 uint user_program_bottom_address,
                 uint user_program_mirror_top_address,
+                uint bootloader_mirror_top_address,
                 uint user_program_mirror_bottom_address,
                 uint bootloader_top_address,
-                uint bootloader_bottom_address,
+                uint bootloader_bottom_address,                
                 uint code_flash_top_address,
                 uint code_flash_bottom_address,
                 uint bootloader_const_data_top_address,
@@ -232,9 +243,10 @@ namespace Renesas_Secure_Flash_Programmer
                 userProgramTopAddress = user_program_top_address;
                 userProgramBottomAddress = user_program_bottom_address;
                 userProgramMirrorTopAddress = user_program_mirror_top_address;
+                bootloaderMirrorTopAddress = bootloader_mirror_top_address;
                 userProgramMirrorBottomAddress = user_program_mirror_bottom_address;
                 bootloaderTopAddress = bootloader_top_address;
-                bootloaderBottomAddress = bootloader_bottom_address;
+                bootloaderBottomAddress = bootloader_bottom_address;                
                 codeFlashTopAddress = code_flash_top_address;
                 codeFlashBottomAddress = code_flash_bottom_address;
                 bootloaderConstDataTopAddress = bootloader_const_data_top_address;
@@ -277,17 +289,17 @@ namespace Renesas_Secure_Flash_Programmer
         public static readonly Dictionary<string, AddressMap> McuSpecs = new Dictionary<string, AddressMap>()
         {
             /* name (SB means Secure Bootloader) */
-            { MCUROM_RX65N_2M_SB_64KB,                  new AddressMap(0x00000001, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffefffff, 0xffff0000, 0xffffffff, 0xfff00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX65N_2M_SB_256KB,                 new AddressMap(0x00000002, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffebffff, 0xfffc0000, 0xffffffff, 0xfff00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX130_512K_SB_64KB,                new AddressMap(0x00000003, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
-            { MCUROM_RX231_512K_SB_64KB,                new AddressMap(0x00000004, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
-            { MCUROM_RX231_384K_SB_32KB,                new AddressMap(0x00000005, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
-            { MCUROM_RX66T_512K_SB_64KB,                new AddressMap(0x00000006, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
-            { MCUROM_RX66T_256K_SB_64KB,                new AddressMap(0x00000007, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
-            { MCUROM_RX72T_1M_SB_64KB,                  new AddressMap(0x00000008, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
-            { MCUROM_RX72T_512K_SB_64KB,                new AddressMap(0x00000009, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
-            { MCUROM_RX72N_4M_SB_64KB,                  new AddressMap(0x0000000a, 0xffe00300, 0xfffeffff, 0xffc00300, 0xffdfffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX72N_4M_SB_256KB,                 new AddressMap(0x0000000b, 0xffe00300, 0xfffbffff, 0xffc00300, 0xffdbffff, 0xfffc0000, 0xffffffff, 0xffc00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX65N_2M_SB_64KB,                  new AddressMap(0x00000001, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffef0000, 0xffefffff, 0xffff0000, 0xffffffff, 0xfff00000, 0xffffffff, 0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX65N_2M_SB_256KB,                 new AddressMap(0x00000002, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffeb0000, 0xffebffff, 0xfffc0000, 0xffffffff, 0xfff00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX130_512K_SB_64KB,                new AddressMap(0x00000003, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xffef0000, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
+            { MCUROM_RX231_512K_SB_64KB,                new AddressMap(0x00000004, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xffef0000, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
+            { MCUROM_RX231_384K_SB_32KB,                new AddressMap(0x00000005, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
+            { MCUROM_RX66T_512K_SB_64KB,                new AddressMap(0x00000006, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xffef0000, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfffb8000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
+            { MCUROM_RX66T_256K_SB_64KB,                new AddressMap(0x00000007, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
+            { MCUROM_RX72T_1M_SB_64KB,                  new AddressMap(0x00000008, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
+            { MCUROM_RX72T_512K_SB_64KB,                new AddressMap(0x00000009, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
+            { MCUROM_RX72N_4M_SB_64KB,                  new AddressMap(0x0000000a, 0xffe00300, 0xfffeffff, 0xffc00300, 0xffdc0000, 0xffdfffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX72N_4M_SB_256KB,                 new AddressMap(0x0000000b, 0xffe00300, 0xfffbffff, 0xffc00300, 0xffd80000, 0xffdbffff, 0xfffc0000, 0xffffffff, 0xffc00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
         };
 
         public static readonly Dictionary<string, uint> InitialFirmVerificationType = new Dictionary<string, uint>()
@@ -2514,6 +2526,7 @@ namespace Renesas_Secure_Flash_Programmer
             return true;
         }
 
+        
         private bool GenerateInitialUserprogBank0Bank1Bootloader(string mcuName)
         {
             string check_sum;
@@ -2529,9 +2542,11 @@ namespace Renesas_Secure_Flash_Programmer
             string motorola_user_program_header_mirror_buf = "";
             string motorola_user_program_mirror_buf = "";
             string motorola_bootloader_buf = "";
+            string motorola_bootloader_mirror_buf = "";
             uint user_program_top_address = McuSpecs[mcuName].userProgramTopAddress;
             uint user_program_bottom_address = McuSpecs[mcuName].userProgramBottomAddress;
             uint user_program_mirror_top_address = McuSpecs[mcuName].userProgramMirrorTopAddress;
+            uint bootloader_mirror_top_address = McuSpecs[mcuName].bootloaderMirrorTopAddress;
             uint user_program_mirror_bottom_address = McuSpecs[mcuName].userProgramMirrorBottomAddress;
             uint bootloader_top_address = McuSpecs[mcuName].bootloaderTopAddress;
             uint bootloader_bottom_address = McuSpecs[mcuName].bootloaderBottomAddress;
@@ -2724,7 +2739,7 @@ namespace Renesas_Secure_Flash_Programmer
 
                     // S3: Bank1 User Program
                     string motorola_user_program_buf_tmp = "";
-                    uint user_program_size = (user_program_mirror_bottom_address + 1) - user_program_mirror_top_address;
+                    uint user_program_size = (bootloader_mirror_top_address) - user_program_mirror_top_address;
                     StringBuilder sb_app_tmp = new StringBuilder();
                     for (uint i = 0; i < user_program_size; i += 16)
                     {
@@ -2860,17 +2875,49 @@ namespace Renesas_Secure_Flash_Programmer
                     motorola_bootloader_buf = str_bootloader.Substring(current_pointer, next_pointer - current_pointer);
                     sb.Clear();
 
+                    //Calculate bootloader mirror. Copy data bootloader to bootloader mirror, and then change the address and checksum. Keep the type Sxx.
+                    string[] lines = motorola_bootloader_buf.Split('\n');
+                    string boot_loader_mirror_start_addess = "";               
+                    sb.Append(Convert.ToString(bootloader_mirror_top_address, 16).ToUpper());
+                    boot_loader_mirror_start_addess = sb.ToString();
+                    string motorola_bootloader_mirror = "";
+                    sb.Clear();
+                    int length_line = 0, data_flash_mirror_one_line_length = 0;                    
+                    foreach (string line in lines)
+                    {
+                        if (line.Length > 0) // check line is not null
+                        {
+                            motorola_bootloader_mirror = line.Replace("\r", "");
+                            StringBuilder replace_string = new StringBuilder(motorola_bootloader_mirror);
+                            replace_string[6] = boot_loader_mirror_start_addess[2];//replace byte 6th bootloader address to byte 3rd bootloader mirror address . ex: 0xffff -> 0xffef
+                            motorola_bootloader_mirror = replace_string.ToString();
+                            length_line = motorola_bootloader_mirror.Length;
+                            data_flash_mirror_one_line_length = length_line - 4 - 2 - 8; // 4 = Sxxx = bytes, 2 = checksum = xx bytes, 8 = 16bytes address                            
+                            motorola_bootloader_mirror = motorola_bootloader_mirror.Remove(data_flash_mirror_one_line_length + 4 + 8, 2).Remove(0, 2);// remove SxxFFxxyyyy and 2 bytes checksum
+                            check_sum = CalculateMotorolaChecksum(motorola_bootloader_mirror);// calculate checksum
+                            sb.Append("S3");
+                            sb.Append(motorola_bootloader_mirror);
+                            sb.Append(check_sum.PadLeft(2, '0'));//add checksum
+                            sb.Append("\r\n");                            
+                        }                        
+                    }                    
+                    motorola_bootloader_mirror_buf = sb.ToString();
+                    sb.Clear();
+                    sb_app_tmp.Clear();                   
+
                     // Output Motorola file
                     string total_buf = "";
                     sb.Append(motorola_top_buf);
                     sb.Append(motorola_bootloader_const_data_buf);
                     sb.Append(motorola_user_program_const_data_buf);
-                    sb.Append(motorola_bootloader_option_memory_buf);
+                    sb.Append(motorola_bootloader_option_memory_buf);                    
                     sb.Append(motorola_user_program_header_mirror_buf);
                     sb.Append(motorola_user_program_mirror_buf);
+                    sb.Append(motorola_bootloader_mirror_buf);
                     sb.Append(motorola_user_program_header_buf);
                     sb.Append(motorola_user_program_buf);
                     sb.Append(motorola_bootloader_buf);
+                    
                     total_buf = sb.ToString();
                     File.WriteAllText(saveFileDialog.FileName, total_buf);
                     sb.Clear();
