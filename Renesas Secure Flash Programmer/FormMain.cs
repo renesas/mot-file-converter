@@ -2887,18 +2887,22 @@ namespace Renesas_Secure_Flash_Programmer
                     {
                         if (line.Length > 0) // check line is not null
                         {
-                            motorola_bootloader_mirror = line.Replace("\r", "");
-                            StringBuilder replace_string = new StringBuilder(motorola_bootloader_mirror);
-                            replace_string[6] = boot_loader_mirror_start_addess[2];//replace byte 6th bootloader address to byte 3rd bootloader mirror address . ex: 0xffff -> 0xffef
-                            motorola_bootloader_mirror = replace_string.ToString();
-                            length_line = motorola_bootloader_mirror.Length;
-                            data_flash_mirror_one_line_length = length_line - 4 - 2 - 8; // 4 = Sxxx = bytes, 2 = checksum = xx bytes, 8 = 16bytes address                            
-                            motorola_bootloader_mirror = motorola_bootloader_mirror.Remove(data_flash_mirror_one_line_length + 4 + 8, 2).Remove(0, 2);// remove SxxFFxxyyyy and 2 bytes checksum
-                            check_sum = CalculateMotorolaChecksum(motorola_bootloader_mirror);// calculate checksum
-                            sb.Append("S3");
-                            sb.Append(motorola_bootloader_mirror);
-                            sb.Append(check_sum.PadLeft(2, '0'));//add checksum
-                            sb.Append("\r\n");                            
+                            if (line.Substring(0,2) != "S7") // dont copy S7 
+                            {
+                                motorola_bootloader_mirror = line.Replace("\r", "");
+                                StringBuilder replace_string = new StringBuilder(motorola_bootloader_mirror);
+                                replace_string[6] = boot_loader_mirror_start_addess[2];//replace byte 6th bootloader address to byte 3rd bootloader mirror address . ex: 0xffff -> 0xffef
+                                motorola_bootloader_mirror = replace_string.ToString();
+                                length_line = motorola_bootloader_mirror.Length;
+                                data_flash_mirror_one_line_length = length_line - 4 - 2 - 8; // 4 = Sxxx = bytes, 2 = checksum = xx bytes, 8 = 16bytes address                            
+                                motorola_bootloader_mirror = motorola_bootloader_mirror.Remove(data_flash_mirror_one_line_length + 4 + 8, 2).Remove(0, 2);// remove SxxFFxxyyyy and 2 bytes checksum
+                                check_sum = CalculateMotorolaChecksum(motorola_bootloader_mirror);// calculate checksum
+                                sb.Append("S3");
+                                sb.Append(motorola_bootloader_mirror);
+                                sb.Append(check_sum.PadLeft(2, '0'));//add checksum
+                                sb.Append("\r\n");
+                            }
+                                              
                         }                        
                     }                    
                     motorola_bootloader_mirror_buf = sb.ToString();
