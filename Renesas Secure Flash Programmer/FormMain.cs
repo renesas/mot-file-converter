@@ -1148,8 +1148,12 @@ namespace Renesas_Secure_Flash_Programmer
             var sign = signer.GenerateSignature(hash);
 
             // Convert signature value to byte [].
-            var sign1 = sign[0].ToByteArray().SkipWhile(b => b == 0x00);
-            var sign2 = sign[1].ToByteArray().SkipWhile(b => b == 0x00);
+            var sign1 = sign[0].ToByteArray();
+            var sign2 = sign[1].ToByteArray();
+
+            // If it is a negative value, it will be 33 bytes, so get 32 bytes again from the last element.
+            sign1 = sign1.Skip(sign1.Length - 32).ToArray();
+            sign2 = sign2.Skip(sign2.Length - 32).ToArray();
             byte[] signature = sign1.Concat(sign2).ToArray();
 
             return signature;
