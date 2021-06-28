@@ -839,6 +839,7 @@
             this.comboBox_Initial_Mcu_firmupdate.Size = new System.Drawing.Size(332, 20);
             this.comboBox_Initial_Mcu_firmupdate.TabIndex = 1;
             this.comboBox_Initial_Mcu_firmupdate.Text = "(select MCU)";
+            this.comboBox_Initial_Mcu_firmupdate.SelectedIndexChanged += new System.EventHandler(this.comboBoxInitialMCU_SelectedIndexChanged);
             // 
             // tabPage3
             // 
