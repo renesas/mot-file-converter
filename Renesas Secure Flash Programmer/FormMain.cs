@@ -40,6 +40,7 @@ namespace Renesas_Secure_Flash_Programmer
             RX66T,
             RX72T,
             RX72N,
+            RX671,
         }
 
         /// <summary>
@@ -271,6 +272,7 @@ namespace Renesas_Secure_Flash_Programmer
         const string MCUROM_RX72T_512K_SB_64KB = "RX72T(ROM 512KB)/Secure Bootloader=64KB";
         const string MCUROM_RX72N_4M_SB_64KB = "RX72N(ROM 4MB)/Secure Bootloader=64KB";
         const string MCUROM_RX72N_4M_SB_256KB = "RX72N(ROM 4MB)/Secure Bootloader=256KB";
+        const string MCUROM_RX671_2M_SB_64KB = "RX671(ROM 2MB)/Secure Bootloader=64KB";
 
 
         const string FIRMWARE_VERIFICATION_TYPE_HASH_SHA256 = "hash-sha256";
@@ -300,6 +302,7 @@ namespace Renesas_Secure_Flash_Programmer
             { MCUROM_RX72T_512K_SB_64KB,                new AddressMap(0x00000009, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
             { MCUROM_RX72N_4M_SB_64KB,                  new AddressMap(0x0000000a, 0xffe00300, 0xfffeffff, 0xffc00300, 0xffdf0000, 0xffdeffff, 0xffff0000, 0xffffffff, 0xffc00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
             { MCUROM_RX72N_4M_SB_256KB,                 new AddressMap(0x0000000b, 0xffe00300, 0xfffbffff, 0xffc00300, 0xffd80000, 0xffdbffff, 0xfffc0000, 0xffffffff, 0xffc00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX671_2M_SB_64KB,                  new AddressMap(0x0000000c, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffef0000, 0xffeeffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0xFE7F5D00, 0xFE7F5D7F) },
         };
 
         public static readonly Dictionary<string, uint> InitialFirmVerificationType = new Dictionary<string, uint>()
@@ -1159,8 +1162,12 @@ namespace Renesas_Secure_Flash_Programmer
             var sign = signer.GenerateSignature(hash);
 
             // Convert signature value to byte [].
-            var sign1 = sign[0].ToByteArray().SkipWhile(b => b == 0x00);
-            var sign2 = sign[1].ToByteArray().SkipWhile(b => b == 0x00);
+            var sign1 = sign[0].ToByteArray();
+            var sign2 = sign[1].ToByteArray();
+
+            // If it is a negative value, it will be 33 bytes, so get 32 bytes again from the last element.
+            sign1 = sign1.Skip(sign1.Length - 32).ToArray();
+            sign2 = sign2.Skip(sign2.Length - 32).ToArray();
             byte[] signature = sign1.Concat(sign2).ToArray();
 
             return signature;
@@ -1993,6 +2000,11 @@ namespace Renesas_Secure_Flash_Programmer
                     offset = (McuSpecs[MCUROM_RX72N_4M_SB_256KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
                     blockMirrorTopAddress = blockTopAddress + offset;
                     break;
+                case Mcu.RX671:
+                    blockTopAddress = McuSpecs[MCUROM_RX671_2M_SB_64KB].dataFlashTopAddress;
+                    offset = (McuSpecs[MCUROM_RX671_2M_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
+                    blockMirrorTopAddress = blockTopAddress + offset;
+                    break;
                 default:
                     break;
             }
@@ -2168,9 +2180,10 @@ namespace Renesas_Secure_Flash_Programmer
             else if (comboBoxInitialFirmwareOutputFormat.Text == OUTPUT_FORMAT_TYPE_BANK0_BANK1_BOOTLOADR)
             {
                 if ((comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=256KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=256KB")||
                     (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=256KB"))
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=256KB")||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX671(ROM 2MB)/Secure Bootloader=64KB"))
                 {
                     textBoxInitialBootLoaderFilePath.Enabled = true;
                     textBoxInitialFirmwareSequenceNumberBank1.Enabled = true;
@@ -2601,7 +2614,8 @@ namespace Renesas_Secure_Flash_Programmer
                 if ((comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=64KB") ||
                     (comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=256KB") ||
                     (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=256KB"))
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=256KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX671(ROM 2MB)/Secure Bootloader=64KB"))
                 {
                 StreamReader sr_user_application = new StreamReader(textBoxInitialUserProgramFilePathBank0.Text, Encoding.GetEncoding("Shift_JIS"));
                 string str_user_application = sr_user_application.ReadToEnd();
