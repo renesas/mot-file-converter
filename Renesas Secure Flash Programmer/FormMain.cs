@@ -35,11 +35,13 @@ namespace Renesas_Secure_Flash_Programmer
         public enum Mcu
         {
             RX130,
+            RX140,
             RX231,
             RX65N,
             RX66T,
             RX72T,
             RX72N,
+            RX671,
         }
 
         /// <summary>
@@ -260,17 +262,18 @@ namespace Renesas_Secure_Flash_Programmer
             }
         }
 
-        const string MCUROM_RX65N_2M_SB_64KB = "RX65N(ROM 2MB)/Secure Bootloader=64KB";
-        const string MCUROM_RX65N_2M_SB_256KB = "RX65N(ROM 2MB)/Secure Bootloader=256KB";
-        const string MCUROM_RX130_512K_SB_64KB = "RX130(ROM 512KB)/Secure Bootloader=64KB";
-        const string MCUROM_RX231_512K_SB_64KB = "RX231(ROM 512KB)/Secure Bootloader=64KB";
-        const string MCUROM_RX231_384K_SB_32KB = "RX231(ROM 384KB)/Secure Bootloader=32KB";
-        const string MCUROM_RX66T_512K_SB_64KB = "RX66T(ROM 512KB)/Secure Bootloader=64KB";
-        const string MCUROM_RX66T_256K_SB_64KB = "RX66T(ROM 256KB)/Secure Bootloader=64KB";
-        const string MCUROM_RX72T_1M_SB_64KB = "RX72T(ROM 1MB)/Secure Bootloader=64KB";
-        const string MCUROM_RX72T_512K_SB_64KB = "RX72T(ROM 512KB)/Secure Bootloader=64KB";
-        const string MCUROM_RX72N_4M_SB_64KB = "RX72N(ROM 4MB)/Secure Bootloader=64KB";
-        const string MCUROM_RX72N_4M_SB_256KB = "RX72N(ROM 4MB)/Secure Bootloader=256KB";
+        const string MCUROM_RX130_512K_SB_64KB = "RX130 Flash(Code=512KB, Data=8KB)/Secure Bootloader=64KB";
+        const string MCUROM_RX140_256K_SB_64KB = "RX140 Flash(Code=256KB, Data=8KB)/Secure Bootloader=64KB";
+        const string MCUROM_RX231_512K_SB_64KB = "RX231 Flash(Code=512KB, Data=8KB)/Secure Bootloader=64KB";
+        const string MCUROM_RX65N_2M_SB_64KB = "RX65N Flash(Code=2MB, Data=32KB)/Secure Bootloader=64KB";
+        const string MCUROM_RX65N_2M_SB_256KB = "RX65N Flash(Code=2MB, Data=32KB)/Secure Bootloader=256KB";
+        const string MCUROM_RX65N_2M_D0_SB_64KB = "RX65N Flash(Code=2MB, Data=0KB)/Secure Bootloader=64KB";
+        const string MCUROM_RX66T_512K_SB_64KB = "RX66T Flash(Code=512KB, Data=32KB)/SecureBootloader=64KB";
+        const string MCUROM_RX660_1M_SB_64KB = "RX660 Flash(Code=1MB, Data=32KB)/Secure Bootloader=64KB";
+        const string MCUROM_RX671_2M_SB_64KB = "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=64KB";
+        const string MCUROM_RX671_2M_SB_256KB = "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=256KB";
+        const string MCUROM_RX72N_4M_SB_64KB = "RX72N Flash(Code=4MB, Data=32KB)/Secure Bootloader=64KB";
+        const string MCUROM_RX72N_4M_SB_256KB = "RX72N Flash(Code=4MB, Data=32KB)/Secure Bootloader=256KB";
 
 
         const string FIRMWARE_VERIFICATION_TYPE_HASH_SHA256 = "hash-sha256";
@@ -289,17 +292,18 @@ namespace Renesas_Secure_Flash_Programmer
         public static readonly Dictionary<string, AddressMap> McuSpecs = new Dictionary<string, AddressMap>()
         {
             /* name (SB means Secure Bootloader) */
-            { MCUROM_RX65N_2M_SB_64KB,                  new AddressMap(0x00000001, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffef0000, 0xffeeffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff, 0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX65N_2M_SB_256KB,                 new AddressMap(0x00000002, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffeb0000, 0xffebffff, 0xfffc0000, 0xffffffff, 0xfff00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
             { MCUROM_RX130_512K_SB_64KB,                new AddressMap(0x00000003, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xffef0000, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfff80000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
+            { MCUROM_RX140_256K_SB_64KB,                new AddressMap(0x0000000d, 0xfffd8300, 0xfffeffff, 0xfffc0300, 0xffef0000, 0xfffd7fff, 0xffff0000, 0xffffffff, 0xfffc0000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
             { MCUROM_RX231_512K_SB_64KB,                new AddressMap(0x00000004, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xffef0000, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfff80000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0, 0) },
-            { MCUROM_RX231_384K_SB_32KB,                new AddressMap(0x00000005, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
+            { MCUROM_RX65N_2M_SB_64KB,                  new AddressMap(0x00000001, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffef0000, 0xffeeffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX65N_2M_SB_256KB,                 new AddressMap(0x00000002, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffec0000, 0xffebffff, 0xfffc0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX65N_2M_D0_SB_64KB,               new AddressMap(0x0000000f, 0xfff08300, 0xfffeffff, 0xffe08300, 0xffef0000, 0xffeeffff, 0xffff0000, 0xffffffff, 0xffe08000, 0xffffffff,0, 0, 0xffe00000, 0xffe07fff, 0xffe00000, 0xffe07fff, 0xFE7F5D00, 0xFE7F5D7F) },
             { MCUROM_RX66T_512K_SB_64KB,                new AddressMap(0x00000006, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xffef0000, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfff80000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
-            { MCUROM_RX66T_256K_SB_64KB,                new AddressMap(0x00000007, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
-            { MCUROM_RX72T_1M_SB_64KB,                  new AddressMap(0x00000008, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
-            { MCUROM_RX72T_512K_SB_64KB,                new AddressMap(0x00000009, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0/* under construction */) },
+            { MCUROM_RX660_1M_SB_64KB,                  new AddressMap(0x00000011, 0xfff78300, 0xfffeffff, 0xfff00300, 0,          0xfff77fff, 0xffff0000, 0xffffffff, 0xfff00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
+            { MCUROM_RX671_2M_SB_64KB,                  new AddressMap(0x0000000c, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffef0000, 0xffeeffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX671_2M_SB_256KB,                 new AddressMap(0x00000010, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffec0000, 0xffebffff, 0xfffc0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0xFE7F5D00, 0xFE7F5D7F) },
             { MCUROM_RX72N_4M_SB_64KB,                  new AddressMap(0x0000000a, 0xffe00300, 0xfffeffff, 0xffc00300, 0xffdf0000, 0xffdeffff, 0xffff0000, 0xffffffff, 0xffc00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
-            { MCUROM_RX72N_4M_SB_256KB,                 new AddressMap(0x0000000b, 0xffe00300, 0xfffbffff, 0xffc00300, 0xffd80000, 0xffdbffff, 0xfffc0000, 0xffffffff, 0xffc00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
+            { MCUROM_RX72N_4M_SB_256KB,                 new AddressMap(0x0000000b, 0xffe00300, 0xfffbffff, 0xffc00300, 0xffdc0000, 0xffdbffff, 0xfffc0000, 0xffffffff, 0xffc00000, 0xffffffff,0, 0, 0x00100000, 0x001077ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
         };
 
         public static readonly Dictionary<string, uint> InitialFirmVerificationType = new Dictionary<string, uint>()
@@ -1159,8 +1163,12 @@ namespace Renesas_Secure_Flash_Programmer
             var sign = signer.GenerateSignature(hash);
 
             // Convert signature value to byte [].
-            var sign1 = sign[0].ToByteArray().SkipWhile(b => b == 0x00);
-            var sign2 = sign[1].ToByteArray().SkipWhile(b => b == 0x00);
+            var sign1 = sign[0].ToByteArray();
+            var sign2 = sign[1].ToByteArray();
+
+            // If it is a negative value, it will be 33 bytes, so get 32 bytes again from the last element.
+            sign1 = sign1.Skip(sign1.Length - 32).ToArray();
+            sign2 = sign2.Skip(sign2.Length - 32).ToArray();
             byte[] signature = sign1.Concat(sign2).ToArray();
 
             return signature;
@@ -1968,6 +1976,11 @@ namespace Renesas_Secure_Flash_Programmer
                     offset = (McuSpecs[MCUROM_RX130_512K_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
                     blockMirrorTopAddress = blockTopAddress + offset;
                     break;
+                case Mcu.RX140:
+                    blockTopAddress = McuSpecs[MCUROM_RX140_256K_SB_64KB].dataFlashTopAddress;
+                    offset = (McuSpecs[MCUROM_RX140_256K_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
+                    blockMirrorTopAddress = blockTopAddress + offset;
+                    break;
                 case Mcu.RX231:
                     blockTopAddress = McuSpecs[MCUROM_RX231_512K_SB_64KB].dataFlashTopAddress;
                     offset = (McuSpecs[MCUROM_RX231_512K_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
@@ -1983,14 +1996,14 @@ namespace Renesas_Secure_Flash_Programmer
                     offset = (McuSpecs[MCUROM_RX66T_512K_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
                     blockMirrorTopAddress = blockTopAddress + offset;
                     break;
-                case Mcu.RX72T:
-                    blockTopAddress = McuSpecs[MCUROM_RX72T_1M_SB_64KB].dataFlashTopAddress;
-                    offset = (McuSpecs[MCUROM_RX72T_1M_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
+                case Mcu.RX72N:
+                    blockTopAddress = McuSpecs[MCUROM_RX72N_4M_SB_64KB].dataFlashTopAddress;
+                    offset = (McuSpecs[MCUROM_RX72N_4M_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
                     blockMirrorTopAddress = blockTopAddress + offset;
                     break;
-                case Mcu.RX72N:
-                    blockTopAddress = McuSpecs[MCUROM_RX72N_4M_SB_256KB].dataFlashTopAddress;
-                    offset = (McuSpecs[MCUROM_RX72N_4M_SB_256KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
+                case Mcu.RX671:
+                    blockTopAddress = McuSpecs[MCUROM_RX671_2M_SB_64KB].dataFlashTopAddress;
+                    offset = (McuSpecs[MCUROM_RX671_2M_SB_64KB].dataFlashBottomAddress - blockTopAddress + 1) / 2;
                     blockMirrorTopAddress = blockTopAddress + offset;
                     break;
                 default:
@@ -2134,12 +2147,15 @@ namespace Renesas_Secure_Flash_Programmer
 
         private void comboBoxInitialMCU_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=256KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=256KB"))
+            if ((comboBox_Initial_Mcu_firmupdate.Text == "RX65N Flash(Code=2MB, Data=32KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N Flash(Code=2MB, Data=32KB)/Secure Bootloader=256KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N Flash(Code=2MB, Data=0KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=256KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N Flash(Code=4MB, Data=32KB)/Secure Bootloader=64KB") ||
+                (comboBox_Initial_Mcu_firmupdate.Text == "RX72N Flash(Code=4MB, Data=32KB)/Secure Bootloader=256KB"))
                 {
-                    textBoxInitialBootLoaderFilePath.Enabled = true;
+                textBoxInitialBootLoaderFilePath.Enabled = true;
                     textBoxInitialFirmwareSequenceNumberBank1.Enabled = true;
                     textBoxInitialUserProgramFilePathBank1.Enabled = true;
                 }
@@ -2167,10 +2183,12 @@ namespace Renesas_Secure_Flash_Programmer
             }
             else if (comboBoxInitialFirmwareOutputFormat.Text == OUTPUT_FORMAT_TYPE_BANK0_BANK1_BOOTLOADR)
             {
-                if ((comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=256KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=256KB"))
+                if ((comboBox_Initial_Mcu_firmupdate.Text == "RX65N Flash(Code=2MB, Data=32KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N Flash(Code=2MB, Data=0KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N Flash(Code=4MB, Data=32KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N Flash(Code=4MB, Data=32KB)/Secure Bootloader=256KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=256KB"))
                 {
                     textBoxInitialBootLoaderFilePath.Enabled = true;
                     textBoxInitialFirmwareSequenceNumberBank1.Enabled = true;
@@ -2492,7 +2510,14 @@ namespace Renesas_Secure_Flash_Programmer
                         for (uint i = 0; i < user_program_const_data_size; i += 16)
                         {
                             uint address = i + user_program_const_data_top_address;
-                            sb_app_tmp.Append("14");
+                            if (0 == (address & 0xff000000))
+                            {
+                                sb_app_tmp.Append("14");
+                            }
+                            else
+                            {
+                                sb_app_tmp.Append("15");
+                            }
                             sb_app_tmp.Append(address.ToString("X2"));
                             for (uint j = 0; j < 16; j++)
                             {
@@ -2501,7 +2526,14 @@ namespace Renesas_Secure_Flash_Programmer
                             motorola_user_program_const_data_buf_tmp = sb_app_tmp.ToString();
                             sb_app_tmp.Clear();
                             check_sum = CalculateMotorolaChecksum(motorola_user_program_const_data_buf_tmp);
-                            sb.Append("S2");
+                            if (0 == (address & 0xff000000))
+                            {
+                                sb.Append("S2");
+                            }
+                            else
+                            {
+                                sb.Append("S3");
+                            }
                             sb.Append(motorola_user_program_const_data_buf_tmp);
                             sb.Append(check_sum.PadLeft(2, '0'));
                             sb.Append("\r\n");
@@ -2598,10 +2630,13 @@ namespace Renesas_Secure_Flash_Programmer
 
             try
             {
-                if ((comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N(ROM 2MB)/Secure Bootloader=256KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=64KB") ||
-                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N(ROM 4MB)/Secure Bootloader=256KB"))
+                if ((comboBox_Initial_Mcu_firmupdate.Text == "RX65N Flash(Code=2MB, Data=32KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N Flash(Code=2MB, Data=32KB)/Secure Bootloader=256KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX65N Flash(Code=2MB, Data=0KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N Flash(Code=4MB, Data=32KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX72N Flash(Code=4MB, Data=32KB)/Secure Bootloader=256KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=64KB") ||
+                    (comboBox_Initial_Mcu_firmupdate.Text == "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=256KB"))
                 {
                 StreamReader sr_user_application = new StreamReader(textBoxInitialUserProgramFilePathBank0.Text, Encoding.GetEncoding("Shift_JIS"));
                 string str_user_application = sr_user_application.ReadToEnd();
@@ -2887,7 +2922,14 @@ namespace Renesas_Secure_Flash_Programmer
                         for (uint i = 0; i < user_program_const_data_size; i += 16)
                         {
                             uint address = i + user_program_const_data_top_address;
-                            sb_app_tmp.Append("14");
+                            if (0 == (address & 0xff000000))
+                            {
+                                sb_app_tmp.Append("14");
+                            }
+                            else
+                            {
+                                sb_app_tmp.Append("15");
+                            }
                             sb_app_tmp.Append(address.ToString("X2"));
                             for (uint j = 0; j < 16; j++)
                             {
@@ -2896,7 +2938,14 @@ namespace Renesas_Secure_Flash_Programmer
                             motorola_user_program_const_data_buf_tmp = sb_app_tmp.ToString();
                             sb_app_tmp.Clear();
                             check_sum = CalculateMotorolaChecksum(motorola_user_program_const_data_buf_tmp);
-                            sb.Append("S2");
+                            if (0 == (address & 0xff000000))
+                            {
+                                sb.Append("S2");
+                            }
+                            else
+                            {
+                                sb.Append("S3");
+                            }
                             sb.Append(motorola_user_program_const_data_buf_tmp);
                             sb.Append(check_sum.PadLeft(2, '0'));
                             sb.Append("\r\n");
