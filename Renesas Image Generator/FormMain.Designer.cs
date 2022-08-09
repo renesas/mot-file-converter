@@ -1,4 +1,4 @@
-﻿namespace Renesas_Secure_Flash_Programmer
+﻿namespace Renesas_Image_Generator
 {
     partial class FormMain
     {
@@ -1078,7 +1078,7 @@
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.MaximizeBox = false;
             this.Name = "FormMain";
-            this.Text = "Renesas Secure Flash Programmer";
+            this.Text = "Renesas Image Generator";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

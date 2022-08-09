@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Renesas_Secure_Flash_Programmer.Properties {
+namespace Renesas_Image_Generator.Properties {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
     // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -39,7 +39,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Renesas_Secure_Flash_Programmer.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Renesas_Image_Generator.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -47,7 +47,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         }
         
         /// <summary>
-        ///   厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+        ///   すべてについて、現在のスレッドの CurrentUICulture プロパティをオーバーライドします
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -67,7 +67,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         /// * other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
         /// * applicable laws, including copyright laws.
         /// * THIS SOFTWARE IS PROVIDED &quot;AS IS&quot; AND RENESAS MAKES NO WARRANTIES REGARDING
-        /// * THIS SOFT [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// * THIS SOFTWARE,  [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string key_data_header_template {
             get {
@@ -82,7 +82,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         /// * other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
         /// * applicable laws, including copyright laws.
         /// * THIS SOFTWARE IS PROVIDED &quot;AS IS&quot; AND RENESAS MAKES NO WARRANTIES REGARDING
-        /// * THIS SOFT [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// * THIS SOFTWARE,  [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string key_data_source_template {
             get {
@@ -102,7 +102,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         ///    0x996f2308, 0xf504769b, 0xb280a178, 0xe2a20d34,
         ///    0x88be048c, 0xa9346df0, 0x782bee9c, 0xd441c9d9,
         ///    0x7b163e05, 0xde5a2876, 0xc91be59a, 0xc8ac38ac,
-        ///     [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///    0x356b6f9f, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string s_flash_rx231_big {
             get {
@@ -122,7 +122,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         ///    0x08236f99, 0x9b7604f5, 0x78a180b2, 0x340da2e2,
         ///    0x8c04be88, 0xf06d34a9, 0x9cee2b78, 0xd9c941d4,
         ///    0x053e167b, 0x76285ade, 0x9ae51bc9, 0xac38acc8,
-        ///     [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///    0x9f6f6b35, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string s_flash_rx231_little {
             get {
@@ -142,7 +142,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         ///    0x463be3f4, 0x884a39c9, 0xb9232871, 0x3f5175ca,
         ///    0x619e8563, 0x73784745, 0x76577b35, 0xef1dcc83,
         ///    0xab65cb74, 0x3c8619a9, 0x2ee6759f, 0x4321d65f,
-        ///     [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///    0x0a44aedb, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string s_flash_rx65n_big {
             get {
@@ -162,7 +162,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         ///    0xf4e33b46, 0xc9394a88, 0x712823b9, 0xca75513f,
         ///    0x63859e61, 0x45477873, 0x357b5776, 0x83cc1def,
         ///    0x74cb65ab, 0xa919863c, 0x9f75e62e, 0x5fd62143,
-        ///     [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///    0xdbae440a, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string s_flash_rx65n_little {
             get {
@@ -182,7 +182,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         ///    0x448ad0f6, 0x111cde16, 0x79f478d0, 0x0705f903,
         ///    0x6e13fdb8, 0xa2ecdd0f, 0xbd34f691, 0xad81efcc,
         ///    0x9c197a54, 0xb210ea00, 0xdccf042c, 0x612fc66d,
-        ///     [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///    0x60afcddc, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string s_flash_rx66t_rx72t_big {
             get {
@@ -202,7 +202,7 @@ namespace Renesas_Secure_Flash_Programmer.Properties {
         ///    0xf6d08a44, 0x16de1c11, 0xd078f479, 0x03f90507,
         ///    0xb8fd136e, 0x0fddeca2, 0x91f634bd, 0xccef81ad,
         ///    0x547a199c, 0x00ea10b2, 0x2c04cfdc, 0x6dc62f61,
-        ///     [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///    0xdccdaf60, [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string s_flash_rx66t_rx72t_little {
             get {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 14 for Windows Desktop
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renesas Secure Flash Programmer", "Renesas Secure Flash Programmer\Renesas Secure Flash Programmer.csproj", "{933577AC-0910-487F-9601-7E45EFD51ECE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renesas Image Generator", "Renesas Image Generator\Renesas Image Generator.csproj", "{933577AC-0910-487F-9601-7E45EFD51ECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

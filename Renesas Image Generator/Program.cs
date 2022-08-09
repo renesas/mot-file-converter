@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Renesas_Secure_Flash_Programmer
+namespace Renesas_Image_Generator
 {
     static class Program
     {

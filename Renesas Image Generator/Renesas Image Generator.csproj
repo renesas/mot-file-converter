@@ -7,8 +7,8 @@
     <ProjectGuid>{933577AC-0910-487F-9601-7E45EFD51ECE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Renesas_Secure_Flash_Programmer</RootNamespace>
-    <AssemblyName>Renesas Secure Flash Programmer</AssemblyName>
+    <RootNamespace>Renesas_Image_Generator</RootNamespace>
+    <AssemblyName>Renesas Image Generator</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

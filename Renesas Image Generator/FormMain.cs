@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Linq;
 using System.Collections;
-using Renesas_Secure_Flash_Programmer.Properties;
+using Renesas_Image_Generator.Properties;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Crypto.Signers;
@@ -16,7 +16,7 @@ using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Math;
 using System.Text;
 
-namespace Renesas_Secure_Flash_Programmer
+namespace Renesas_Image_Generator
 {
     public partial class FormMain : Form
     {
@@ -367,13 +367,13 @@ namespace Renesas_Secure_Flash_Programmer
             Signature/MAC/Hash size : ファームウェア検証に用いる署名値やMAC値やハッシュ値などのデータサイズです。
             Signature/MAC/Hash      : ファームウェア検証に用いる署名値やMAC値やハッシュ値です。
             Sequence Number         : シーケンス番号は、新しい OTA イメージを構築する前に増加させる必要があります。
-                                    　Renesas Secure Flash Programmerにてユーザが指定可能です。
+                                    　Renesas Image Generatorにてユーザが指定可能です。
                                       ブートローダーは、この番号を使用してブートするイメージを決定します。
                                       有効な値の範囲は 1～ 4294967295‬ です。 
             Start Address           : デバイス上のOTA Imageの開始アドレスです。
-                                      Renesas Secure Flash Programmerが自動的に設定するため、ユーザ指定は不要です。
+                                      Renesas Image Generatorが自動的に設定するため、ユーザ指定は不要です。
             End Address             : イメージトレーラーを除く、デバイス上のOTA Imageの終了アドレスです。
-                                      Renesas Secure Flash Programmerが自動的に設定するため、ユーザ指定は不要です。
+                                      Renesas Image Generatorが自動的に設定するため、ユーザ指定は不要です。
             Hardware ID             : OTA Imageが正しいプラットフォーム用に構築されているかどうかを検証するために
                                       ブートローダーによって使用される一意のハードウェア ID です。
                                       例: 0x00000001    MCUROM_RX65N_2M_SB_64KB
@@ -459,7 +459,7 @@ namespace Renesas_Secure_Flash_Programmer
                 comboBoxInitialFirmwareOutputFormat.Text = OUTPUT_FORMAT_TYPE_BANK0_BOOTLOADR;
                 if (args[ARGUMENT_FIRMWARE_TYPE] == FIRMWARE_TYPE_INITIAL)
                 {
-                    Console.WriteLine("Reneas Secure Flash Programmer CUI");
+                    Console.WriteLine("Renesas Image Generator CUI");
                     Console.WriteLine("Start generating initial firmware in Renesas Secure Update File");
                     /* 引数設定  */
                     mcuName = args[ARGUMENT_INITIAL_MCU];
@@ -474,7 +474,7 @@ namespace Renesas_Secure_Flash_Programmer
                 }
                 else if (args[ARGUMENT_FIRMWARE_TYPE] == FIRMWARE_TYPE_UPDATE)
                 {/* FIRMWARE_TYPE_UPDATE */
-                    Console.WriteLine("Reneas Secure Flash Programmer CUI");
+                    Console.WriteLine("Renesas Image Generator CUI");
                     Console.WriteLine("Start generating update firmware in Motorola S Format File");
 
                     mcuName = args[ARGUMENT_INITIAL_MCU];
@@ -487,7 +487,7 @@ namespace Renesas_Secure_Flash_Programmer
                 }
                 else
                 {
-                    Console.WriteLine("Reneas Secure Flash Programmer CUI\r\n");
+                    Console.WriteLine("Renesas Image Generator CUI\r\n");
                     Console.WriteLine("CUI Initial [MCU] [Verification Type] [Firmware Sequence No] [Boot Loader File Path]  [User Program File Path] [Private Key Path(GER)] [Output File Path]\r\n");
                     Console.WriteLine("CUI Update [MCU] [Verification Type] [Firmware Sequence No] [User Program File Path] [Output File Path]\r\n");
                 }

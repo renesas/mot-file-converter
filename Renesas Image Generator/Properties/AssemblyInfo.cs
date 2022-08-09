@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("Renesas Secure Flash Programmer")]
+[assembly: AssemblyTitle("Renesas Image Generator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Renesas Secure Flash Programmer")]
+[assembly: AssemblyProduct("Renesas Image Generator")]
 [assembly: AssemblyCopyright("©  2015, 2022 Renesas Electronics Corporation. all rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
