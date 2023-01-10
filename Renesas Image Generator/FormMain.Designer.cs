@@ -511,6 +511,7 @@
             this.tabPage3.Size = new System.Drawing.Size(1334, 654);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Update Firm";
+
             // 
             // groupBox3
             // 
@@ -626,6 +627,7 @@
             this.comboBoxMcu_firmupdate.Size = new System.Drawing.Size(652, 26);
             this.comboBoxMcu_firmupdate.TabIndex = 1;
             this.comboBoxMcu_firmupdate.Text = "(select MCU)";
+            this.comboBoxMcu_firmupdate.SelectedIndexChanged += new System.EventHandler(this.comboBoxMcu_firmupdate_SelectedIndexChanged);
             // 
             // groupBox2
             // 

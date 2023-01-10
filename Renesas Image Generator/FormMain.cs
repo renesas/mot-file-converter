@@ -269,6 +269,7 @@ namespace Renesas_Image_Generator
         const string MCUROM_RX65N_2M_SB_256KB = "RX65N Flash(Code=2MB, Data=32KB)/Secure Bootloader=256KB";
         const string MCUROM_RX65N_2M_D0_SB_64KB = "RX65N Flash(Code=2MB, Data=0KB)/Secure Bootloader=64KB";
         const string MCUROM_RX66T_512K_SB_64KB = "RX66T Flash(Code=512KB, Data=32KB)/SecureBootloader=64KB";
+        const string MCUROM_RX66T_UP_512K_SB_64KB = "RX66T Flash(Code=512KB, Data=32KB)/SB=64KB,UP=448KB";
         const string MCUROM_RX660_1M_SB_64KB = "RX660 Flash(Code=1MB, Data=32KB)/Secure Bootloader=64KB";
         const string MCUROM_RX671_2M_SB_64KB = "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=64KB";
         const string MCUROM_RX671_2M_SB_256KB = "RX671 Flash(Code=2MB, Data=8KB)/Secure Bootloader=256KB";
@@ -299,6 +300,7 @@ namespace Renesas_Image_Generator
             { MCUROM_RX65N_2M_SB_256KB,                 new AddressMap(0x00000002, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffec0000, 0xffebffff, 0xfffc0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0xFE7F5D00, 0xFE7F5D7F) },
             { MCUROM_RX65N_2M_D0_SB_64KB,               new AddressMap(0x0000000f, 0xfff08300, 0xfffeffff, 0xffe08300, 0xffef0000, 0xffeeffff, 0xffff0000, 0xffffffff, 0xffe08000, 0xffffffff,0, 0, 0xffe00000, 0xffe07fff, 0xffe00000, 0xffe07fff, 0xFE7F5D00, 0xFE7F5D7F) },
             { MCUROM_RX66T_512K_SB_64KB,                new AddressMap(0x00000006, 0xfffb8300, 0xfffeffff, 0xfff80300, 0xffef0000, 0xfffb7fff, 0xffff0000, 0xffffffff, 0xfff80000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
+            { MCUROM_RX66T_UP_512K_SB_64KB,             new AddressMap(0x00000012, 0xfff80300, 0xfffeffff, 0,          0,          0,          0xffff0000, 0xffffffff, 0xfff80000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
             { MCUROM_RX660_1M_SB_64KB,                  new AddressMap(0x00000011, 0xfff78300, 0xfffeffff, 0xfff00300, 0,          0xfff77fff, 0xffff0000, 0xffffffff, 0xfff00000, 0xffffffff,0, 0, 0x00100000, 0x001057ff, 0x00100000, 0x00107fff, 0, 0) },
             { MCUROM_RX671_2M_SB_64KB,                  new AddressMap(0x0000000c, 0xfff00300, 0xfffeffff, 0xffe00300, 0xffef0000, 0xffeeffff, 0xffff0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0xFE7F5D00, 0xFE7F5D7F) },
             { MCUROM_RX671_2M_SB_256KB,                 new AddressMap(0x00000010, 0xfff00300, 0xfffbffff, 0xffe00300, 0xffec0000, 0xffebffff, 0xfffc0000, 0xffffffff, 0xffe00000, 0xffffffff,0, 0, 0x00100000, 0x001017ff, 0x00100000, 0x00101fff, 0xFE7F5D00, 0xFE7F5D7F) },
@@ -2029,7 +2031,7 @@ namespace Renesas_Image_Generator
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
-
+            print_log("Initial Firm Tab Click!.");
         }
 
         private void buttonBrowseInitialUserPrivateKey_Click(object sender, EventArgs e)
@@ -3127,18 +3129,21 @@ namespace Renesas_Image_Generator
         /// <param name="e"></param>
         private void buttonBrowseUserprog_Click(object sender, EventArgs e)
         {
-            // Displays a OpenFileDialog so the user can save the Image
-            openFileDialog.Filter = "Motorola Format File|*.mot";
-            openFileDialog.Title = "Open the Motorola Format File";
-            openFileDialog.FileName = "";
-
-            if (openFileDialog.ShowDialog() != DialogResult.OK || openFileDialog.FileName == "")
+            if (textBoxUserProgramFilePath.Enabled)
             {
-                print_log("please specify the motorola file name.");
-                return;
-            }
+                // Displays a OpenFileDialog so the user can save the Image
+                openFileDialog.Filter = "Motorola Format File|*.mot";
+                openFileDialog.Title = "Open the Motorola Format File";
+                openFileDialog.FileName = "";
 
-            textBoxUserProgramFilePath.Text = openFileDialog.FileName;
+                if (openFileDialog.ShowDialog() != DialogResult.OK || openFileDialog.FileName == "")
+                {
+                    print_log("please specify the motorola file name.");
+                    return;
+                }
+
+                textBoxUserProgramFilePath.Text = openFileDialog.FileName;
+            }
         }
 
         private bool GenerateUserprog(string mcuName)
@@ -3272,5 +3277,21 @@ namespace Renesas_Image_Generator
             }
 
         }
+
+        private void comboBoxMcu_firmupdate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+//            if (comboBoxMcu_firmupdate.Text == "RX66T Flash(Code=512KB, Data=32KB)/UserProgram=448KB, SecureBootloader=64KB")
+//            {
+//                textBoxFirmwareSequenceNumber.Enabled = false;
+//                textBoxUserProgramFilePath.Enabled = false;
+//            }
+//            else
+//            {
+//                textBoxFirmwareSequenceNumber.Enabled = true;
+//                textBoxUserProgramFilePath.Enabled = true;
+//            }
+
+        }
     }
 }
+
